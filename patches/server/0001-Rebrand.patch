@@ -1,6 +1,6 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Encode42 <me@encode42.dev>
-Date: Thu, 16 Sep 2021 20:39:45 -0400
+From: Pancakse <pancakseyt@gmail.com>
+Date: Sun, 17 Dec 2023 00:05:45 -0700
 Subject: [PATCH] Rebrand
 
 
@@ -13,7 +13,7 @@ index 0eeca0c0dfbb62b7551cda95576932d3f14e6de2..b5459aa26c211cd53f6cb8418836f8ff
  
  dependencies {
 -    // IceCream start
--    implementation(project(":bolt-api"))
+-    implementation(project(":icecream-api"))
 +    implementation(project(":bolt-api")) // IceCream // Bolt
      implementation("io.papermc.paper:paper-mojangapi:${project.version}") {
          exclude("io.papermc.paper", "paper-api")
@@ -26,8 +26,8 @@ index 0eeca0c0dfbb62b7551cda95576932d3f14e6de2..b5459aa26c211cd53f6cb8418836f8ff
          attributes(
              "Main-Class" to "org.bukkit.craftbukkit.Main",
              "Implementation-Title" to "CraftBukkit",
--            "Implementation-Version" to "git-IceCream-$implementationVersion", // Pufferfish // IceCream
-+            "Implementation-Version" to "git-Bolt-$implementationVersion", // Pufferfish // IceCream // Bolt
+-            "Implementation-Version" to "git-IceCream-$implementationVersion", // Pufferfish // Purpur // IceCream
++            "Implementation-Version" to "git-Bolt-$implementationVersion", // Pufferfish // Purpur // IceCream // Bolt
              "Implementation-Vendor" to date, // Paper
              "Specification-Title" to "Bukkit",
              "Specification-Version" to project.version,
@@ -39,17 +39,17 @@ index 462a6eed350fd660ddaf25d567bb6e97b77d0b2b..9e3e1ddb6ff728533e1d0d11ac62de0c
      @Nonnull
      @Override
      public Component getVersionMessage(@Nonnull String serverVersion) {
--        String[] parts = serverVersion.substring("git-IceCream-".length()).split("[-\\s]"); // Purpur // IceCream
--        final Component updateMessage = getUpdateStatusMessage("IceCreamMC/IceCream", "ver/" + getMinecraftVersion(), parts[0]); // Purpur // IceCream
-+        String[] parts = serverVersion.substring("git-IceCream-".length()).split("[-\\s]"); // IceCream // IceCream
-+        final Component updateMessage = getUpdateStatusMessage("IceCreamMC/Bolt", "ver/" + getMinecraftVersion(), parts[0]); // Purpur // IceCream
+-        String[] parts = serverVersion.substring("git-IceCream-".length()).split("[-\\s]"); // IceCream
+-        final Component updateMessage = getUpdateStatusMessage("IceCreamMC/IceCream", "ver/" + getMinecraftVersion(), parts[0]); // IceCream
++        String[] parts = serverVersion.substring("git-Bolt-".length()).split("[-\\s]"); // IceCream // Bolt
++        final Component updateMessage = getUpdateStatusMessage("IceCreamMC/Bolt", "ver/" + getMinecraftVersion(), parts[0]); // IceCreamMC // Bolt
          final Component history = getHistory();
  
-         return history != null ? Component.join(net.kyori.adventure.text.JoinConfiguration.separator(Component.newline()), history, updateMessage) : updateMessage; // IceCream
+         return history != null ? Component.join(net.kyori.adventure.text.JoinConfiguration.separator(Component.newline()), history, updateMessage) : updateMessage; // IceCreamMC
 @@ -58,6 +58,7 @@ public class PaperVersionFetcher implements VersionFetcher {
  
      private static Component getUpdateStatusMessage(@Nonnull String repo, @Nonnull String branch, @Nonnull String versionInfo) {
-         //int distance; // IceCream - use field
+         //int distance; // Purpur - use field
 +        /* // Bolt start - disable jenkins/api checking
          try {
              int jenkinsBuild = Integer.parseInt(versionInfo);
@@ -61,7 +61,7 @@ index 462a6eed350fd660ddaf25d567bb6e97b77d0b2b..9e3e1ddb6ff728533e1d0d11ac62de0c
 +        */
 +        versionInfo = versionInfo.replace("\"", "");
 +        distance = fetchDistanceFromGitHub(repo, branch, versionInfo);
-+        // Bolt end
++        // IceCreamMC end
  
          switch (distance) {
              case -1:
@@ -87,11 +87,11 @@ index 99597258e8e88cd9e2c901c4ac3ff7faeeabee2b..5e8569c0661d6cb38e8dafe47b812c7b
          String result = "Unknown-Version";
  
 -        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/org.icecreammc.icecream/icecream-api/pom.properties"); // Pufferfish // Purpur // IceCream
-+        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/org.icecreammc.bolt/bolt-api/pom.properties"); // Pufferfish // Purpur // IceCream // Bolt
++        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/org.icecreammc/bolt/bolt-api/pom.properties"); // Pufferfish // Purpur // IceCream // Bolt
          Properties properties = new Properties();
  
          if (stream != null) {
-diff --git a/src/main/java/org/purpurmc/purpur/IceCreamConfig.java b/src/main/java/org/purpurmc/purpur/IceCreamConfig.java
+diff --git a/src/main/java/org/icecreammc/icecream/IceCreamConfig.java b/src/main/java/org/icecreammc/icecream/IceCreamConfig.java
 index 3633574e112f217b412217dd243a631dc4e9c40c..d97db83d079d7a2354d796c186acb23de3476682 100644
 --- a/src/main/java/org/icecreammc/icecream/IceCreamConfig.java
 +++ b/src/main/java/org/icecreammc/icecream/IceCreamConfig.java
