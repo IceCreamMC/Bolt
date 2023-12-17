@@ -52,7 +52,7 @@ manifest.mf
 run/
 
 build-data/
-Tentacles-API
-Tentacles-MojangAPI
-Tentacles-Server
+Bolt-API
+Bolt-MojangAPI
+Bolt-Server
 *.jar

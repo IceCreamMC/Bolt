@@ -5,7 +5,7 @@ plugins {
     java
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "8.1.1" apply false
-    id("io.papermc.paperweight.patcher") version "1.5.8"
+    id("io.papermc.paperweight.patcher") version "1.5.10"
 }
 
 allprojects {
@@ -63,35 +63,35 @@ dependencies {
 }
 
 paperweight {
-    serverProject.set(project(":tentacles-server"))
+    serverProject.set(project(":bolt-server"))
 
     remapRepo.set(paperMavenPublicUrl)
     decompileRepo.set(paperMavenPublicUrl)
 
-    useStandardUpstream("purpur") {
-        url.set(github("PurpurMC", "Purpur"))
-        ref.set(providers.gradleProperty("purpurCommit"))
+    useStandardUpstream("icecream") {
+        url.set(github("IceCreamMC", "IceCream"))
+        ref.set(providers.gradleProperty("icecreamCommit"))
 
         withStandardPatcher {
-            baseName("Purpur")
+            baseName("IceCream")
 
             apiPatchDir.set(layout.projectDirectory.dir("patches/api"))
-            apiOutputDir.set(layout.projectDirectory.dir("Tentacles-API"))
+            apiOutputDir.set(layout.projectDirectory.dir("Bolt-API"))
 
             serverPatchDir.set(layout.projectDirectory.dir("patches/server"))
-            serverOutputDir.set(layout.projectDirectory.dir("Tentacles-Server"))
+            serverOutputDir.set(layout.projectDirectory.dir("Bolt-Server"))
         }
     }
 }
 
 tasks.generateDevelopmentBundle {
-    apiCoordinates.set("org.purpurmc.tentacles:tentacles-api")
+    apiCoordinates.set("org.icecreammc.bolt:bolt-api")
     mojangApiCoordinates.set("io.papermc.paper:paper-mojangapi")
     libraryRepositories.set(
         listOf(
             "https://repo.maven.apache.org/maven2/",
             paperMavenPublicUrl,
-            "https://repo.purpurmc.org/snapshots",
+            "http://135.181.141.62:4038/snapshots",
         )
     )
 }
@@ -99,8 +99,8 @@ tasks.generateDevelopmentBundle {
 allprojects {
     publishing {
         repositories {
-            maven("https://repo.purpurmc.org/snapshots") {
-                name = "tentacles"
+            maven("http://135.181.141.62:4038/snapshots") {
+                name = "bolt"
                 credentials(PasswordCredentials::class)
             }
         }
@@ -121,7 +121,7 @@ tasks.register("printMinecraftVersion") {
     }
 }
 
-tasks.register("printTentaclesVersion") {
+tasks.register("printBoltVersion") {
     doLast {
         println(project.version)
     }
