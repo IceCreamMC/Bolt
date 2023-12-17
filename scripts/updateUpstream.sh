@@ -12,7 +12,7 @@ upstream=$(git ls-remote https://github.com/IceCreamMC/IceCream | grep ver/1.20.
 if [ "$current" != "$upstream" ]; then
     sed -i 's/icecreamCommit = .*/icecreamCommit = '"$upstream"'/' gradle.properties
     {
-      ./gradlew applyPatches --stacktrace && ./gradlew build --stacktrace && ./gradlew rebuildPatches --stacktrace
+      ./gradlew applyPatches --no-daemon --stacktrace && ./gradlew createReobfPaperclipJar --no-daemon --stacktrace && ./gradlew createMojmapPaperclipJar --no-daemon --stacktrace && ./gradlew rebuildPatches --no-daemon --stacktrace
     } || exit
 
     git add .
