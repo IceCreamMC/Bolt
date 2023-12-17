@@ -14,7 +14,7 @@ index 0eeca0c0dfbb62b7551cda95576932d3f14e6de2..b5459aa26c211cd53f6cb8418836f8ff
  dependencies {
 -    // IceCream start
 -    implementation(project(":icecream-api"))
-+    implementation(project(":bolt-api")) // IceCream // Bolt
++    implementation(project(":bolt-api")) // Purpur // IceCream // Bolt
      implementation("io.papermc.paper:paper-mojangapi:${project.version}") {
          exclude("io.papermc.paper", "paper-api")
      }
@@ -39,10 +39,10 @@ index 462a6eed350fd660ddaf25d567bb6e97b77d0b2b..9e3e1ddb6ff728533e1d0d11ac62de0c
      @Nonnull
      @Override
      public Component getVersionMessage(@Nonnull String serverVersion) {
--        String[] parts = serverVersion.substring("git-IceCream-".length()).split("[-\\s]"); // IceCream
--        final Component updateMessage = getUpdateStatusMessage("IceCreamMC/IceCream", "ver/" + getMinecraftVersion(), parts[0]); // IceCream
-+        String[] parts = serverVersion.substring("git-Bolt-".length()).split("[-\\s]"); // IceCream // Bolt
-+        final Component updateMessage = getUpdateStatusMessage("IceCreamMC/Bolt", "ver/" + getMinecraftVersion(), parts[0]); // IceCreamMC // Bolt
+-        String[] parts = serverVersion.substring("git-IceCream-".length()).split("[-\\s]"); // Purpur // IceCream
+-        final Component updateMessage = getUpdateStatusMessage("IceCreamMC/IceCream", "ver/" + getMinecraftVersion(), parts[0]); // Purpur // IceCream
++        String[] parts = serverVersion.substring("git-Bolt-".length()).split("[-\\s]"); // Purpur // IceCream // Bolt
++        final Component updateMessage = getUpdateStatusMessage("IceCreamMC/Bolt", "ver/" + getMinecraftVersion(), parts[0]); // Purpur // IceCreamMC // Bolt
          final Component history = getHistory();
  
          return history != null ? Component.join(net.kyori.adventure.text.JoinConfiguration.separator(Component.newline()), history, updateMessage) : updateMessage; // IceCreamMC
@@ -61,7 +61,7 @@ index 462a6eed350fd660ddaf25d567bb6e97b77d0b2b..9e3e1ddb6ff728533e1d0d11ac62de0c
 +        */
 +        versionInfo = versionInfo.replace("\"", "");
 +        distance = fetchDistanceFromGitHub(repo, branch, versionInfo);
-+        // IceCreamMC end
++        // Bolt end
  
          switch (distance) {
              case -1:
@@ -104,3 +104,62 @@ index 3633574e112f217b412217dd243a631dc4e9c40c..d97db83d079d7a2354d796c186acb23d
      private static void serverModName() {
          serverModName = getString("settings.server-mod-name", serverModName);
      }
+     diff --git a/src/main/java/net/minecraft/server/dedicated/DedicatedServerProperties.java b/src/main/java/net/minecraft/server/dedicated/DedicatedServerProperties.java
+index 1ea3012995c738c67b31e997c138f824f9e69ba1..a506e9e645e35623b08ed98cdba7121d82fe9c29 100644
+--- a/src/main/java/net/minecraft/server/dedicated/DedicatedServerProperties.java
++++ b/src/main/java/net/minecraft/server/dedicated/DedicatedServerProperties.java
+@@ -63,7 +63,7 @@ public class DedicatedServerProperties extends Settings<DedicatedServerPropertie
+     public final boolean spawnNpcs = this.get("spawn-npcs", true);
+     public final boolean pvp = this.get("pvp", true);
+     public final boolean allowFlight = this.get("allow-flight", false);
+-    public final String motd = this.get("motd", "A Minecraft Server");
++    public final String motd = this.get("motd", "Powered with ice cream!");
+     public final boolean forceGameMode = this.get("force-gamemode", false);
+     public final boolean enforceWhitelist = this.get("enforce-whitelist", false);
+     public final Difficulty difficulty;
+diff --git a/src/main/java/org/spigotmc/WatchdogThread.java b/src/main/java/org/spigotmc/WatchdogThread.java
+index 0801dea155048ac5383295f4fef9bd597b678535..57112a0693db2c0dd0d3564f23d45d71fc071994 100644
+--- a/src/main/java/org/spigotmc/WatchdogThread.java
++++ b/src/main/java/org/spigotmc/WatchdogThread.java
+@@ -155,14 +155,14 @@ public final class WatchdogThread extends io.papermc.paper.util.TickThread // Pa
+                 if (isLongTimeout) {
+                 // Paper end
+                 log.log( Level.SEVERE, "------------------------------" );
+-                log.log( Level.SEVERE, "The server has stopped responding! This is (probably) not a IceCream bug." ); // Paper // Purpur // IceCream
++                log.log( Level.SEVERE, "The server has stopped responding! This is (probably) not a Bolt bug." ); // Paper // Purpur // IceCream // Bolt
+                 log.log( Level.SEVERE, "If you see a plugin in the Server thread dump below, then please report it to that author" );
+                 log.log( Level.SEVERE, "\t *Especially* if it looks like HTTP or MySQL operations are occurring" );
+                 log.log( Level.SEVERE, "If you see a world save or edit, then it means you did far more than your server can handle at once" );
+                 log.log( Level.SEVERE, "\t If this is the case, consider increasing timeout-time in spigot.yml but note that this will replace the crash with LARGE lag spikes" );
+-                log.log( Level.SEVERE, "If you are unsure or still think this is a IceCream bug, please report this to https://github.com/PurpurMC/Purpur/issues" ); // Purpur // IceCream
++                log.log( Level.SEVERE, "If you are unsure or still think this is a Bolt bug, please report this to https://github.com/PurpurMC/Purpur/issues" ); // Purpur // IceCream // Bolt
+                 log.log( Level.SEVERE, "Be sure to include ALL relevant console errors and Minecraft crash reports" );
+-                log.log( Level.SEVERE, "IceCream version: " + Bukkit.getServer().getVersion() ); // Purpur // IceCream
++                log.log( Level.SEVERE, "Bolt version: " + Bukkit.getServer().getVersion() ); // Purpur // IceCream // Bolt
+                 //
+                 if ( net.minecraft.world.level.Level.lastPhysicsProblem != null )
+                 {
+@@ -185,12 +185,12 @@ public final class WatchdogThread extends io.papermc.paper.util.TickThread // Pa
+                 // Paper end
+                 } else
+                 {
+-                    log.log(Level.SEVERE, "--- DO NOT REPORT THIS TO ICECREAM - THIS IS NOT A BUG OR A CRASH  - " + Bukkit.getServer().getVersion() + " ---"); // Purpur // IceCream
++                    log.log(Level.SEVERE, "--- DO NOT REPORT THIS TO BOLT - THIS IS NOT A BUG OR A CRASH  - " + Bukkit.getServer().getVersion() + " ---"); // Purpur // IceCream // Bolt
+                     log.log(Level.SEVERE, "The server has not responded for " + (currentTime - lastTick) / 1000 + " seconds! Creating thread dump");
+                 }
+                 // Paper end - Different message for short timeout
+                 log.log( Level.SEVERE, "------------------------------" );
+-                log.log( Level.SEVERE, "Server thread dump (Look for plugins here before reporting to IceCream!):" ); // Paper // Purpur // IceCream
++                log.log( Level.SEVERE, "Server thread dump (Look for plugins here before reporting to Bolt!):" ); // Paper // Purpur // IceCream // Bolt
+                 io.papermc.paper.chunk.system.scheduling.ChunkTaskScheduler.dumpAllChunkLoadInfo(isLongTimeout); // Paper // Paper - rewrite chunk system
+                 this.dumpTickingInfo(); // Paper - log detailed tick information
+                 WatchdogThread.dumpThread( ManagementFactory.getThreadMXBean().getThreadInfo( MinecraftServer.getServer().serverThread.getId(), Integer.MAX_VALUE ), log );
+@@ -206,7 +206,7 @@ public final class WatchdogThread extends io.papermc.paper.util.TickThread // Pa
+                     WatchdogThread.dumpThread( thread, log );
+                 }
+                 } else {
+-                    log.log(Level.SEVERE, "--- DO NOT REPORT THIS TO ICECREAM - THIS IS NOT A BUG OR A CRASH ---"); // Purpur // IceCream
++                    log.log(Level.SEVERE, "--- DO NOT REPORT THIS TO BOLT - THIS IS NOT A BUG OR A CRASH ---"); // Purpur // IceCream // Bolt
+                 }
+ 
+                 log.log( Level.SEVERE, "------------------------------" );
