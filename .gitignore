@@ -55,4 +55,5 @@ build-data/
 Bolt-API
 Bolt-MojangAPI
 Bolt-Server
+paper-api-generator
 *.jar
