@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Pancakse <pancakseyt@gmail.com>
+Date: Sun, 31 Dec 2023 23:34:38 -0700
+Subject: [PATCH] Bolt Project Setup
+
+
+diff --git a/build.gradle.kts b/build.gradle.kts
+index 5b8a28969451b12c4fc66976afd052ffa5805932..748b7ffcfa4563519d93c569d6344a969ff7f590 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -13,12 +13,10 @@ configurations.named(log4jPlugins.compileClasspathConfigurationName) {
+ val alsoShade: Configuration by configurations.creating
+ 
+ dependencies {
+-    // IceCream start
+-    implementation(project(":icecream-api"))
++    implementation(project(":bolt-api")) // IceCream // Bolt
+     implementation("io.papermc.paper:paper-mojangapi:${project.version}") {
+         exclude("io.papermc.paper", "paper-api")
+     }
+-    // IceCream end
+     // Paper start
+     implementation("org.jline:jline-terminal-jansi:3.21.0")
+     implementation("net.minecrell:terminalconsoleappender:1.3.0")
+@@ -92,7 +90,7 @@ tasks.jar {
+         attributes(
+             "Main-Class" to "org.bukkit.craftbukkit.Main",
+             "Implementation-Title" to "CraftBukkit",
+-            "Implementation-Version" to "git-IceCream-$implementationVersion", // Pufferfish // Purpur // Icecream
++            "Implementation-Version" to "git-Bolt-$implementationVersion", // Pufferfish // Purpur // IceCream // Bolt
+             "Implementation-Vendor" to date, // Paper
+             "Specification-Title" to "Bukkit",
+             "Specification-Version" to project.version,
